@@ -37,12 +37,17 @@
 
       if (self.options.picker === true) {
         var selectText = self.$select.find('> option:selected').text();
-        self.$icon = $('<span class="simplecolorpicker icon"'
-                     + ' title="' + selectText + '"'
-                     + ' style="background-color: ' + self.$select.val() + ';"'
-                     + ' role="button" tabindex="0">'
-                     + '</span>').insertAfter(self.$select);
+        self.$icon = $('<span class="simplecolorpicker icon"' 
+                      + ' title="' + selectText + '"' 
+                      + ' style="background-color: ' + self.$select.val() + ';"' 
+                      + ' role="button" tabindex="0">' 
+                      + '</span>').insertAfter(self.$select);
         self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
+        self.$icon.on('keydown.' + self.type, function(e) {
+          if (e.which === 13) {
+            self.showPicker();
+          }
+        });
 
         self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
         self.$colorList = self.$picker;
@@ -50,6 +55,13 @@
         // Hide picker when clicking outside
         $(document).on('mousedown.' + self.type, $.proxy(self.hidePicker, self));
         self.$picker.on('mousedown.' + self.type, $.proxy(self.mousedown, self));
+        self.$picker.on('keydown.' + self.type, function(e) {
+          if (e.which === 27) {
+            e.preventDefault();
+            e.stopPropagation();
+            self.hidePicker();
+          }
+        });
       } else {
         self.$inline = $('<span class="simplecolorpicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
         self.$colorList = self.$inline;
@@ -84,17 +96,24 @@
           role = ' role="button" tabindex="0"';
         }
 
-        var $colorSpan = $('<span class="color"'
-                         + title
-                         + ' style="background-color: ' + color + ';"'
-                         + ' data-color="' + color + '"'
-                         + selected
-                         + disabled
-                         + role + '>'
-                         + '</span>');
+        var $colorSpan = $('<span class="color"' 
+                          + title 
+                          + ' style="background-color: ' + color + ';"' 
+                          + ' data-color="' + color + '"' 
+                          + selected 
+                          + disabled 
+                          + role + '>' 
+                          + '</span>');
 
         self.$colorList.append($colorSpan);
         $colorSpan.on('click.' + self.type, $.proxy(self.colorSpanClicked, self));
+        $colorSpan.on('keydown.' + self.type, function(e) {
+          if (e.which === 13) {
+            e.preventDefault();
+            e.stopPropagation();
+            self.colorSpanClicked(e);
+          }
+        });
 
         var $next = $option.next();
         if ($next.is('optgroup') === true) {
@@ -102,6 +121,28 @@
           self.$colorList.append('<span class="vr"></span>');
         }
       });
+
+      // This sets the focus to the first button in the picker dialog
+      // It also enables looping of the tabs both forward and reverse direction.
+      if (self.options.picker === true) {
+        var $buttons = self.$picker.find('[role=button]');
+        var $firstButton = $buttons.first();
+        var $lastButton = $buttons.last();
+
+        $firstButton.on('keydown', function(e) {
+          if (e.which === 9 && e.shiftKey) {
+            e.preventDefault();
+            $lastButton.focus();
+          }
+        });
+
+        $lastButton.on('keydown', function(e) {
+          if (e.which === 9 && !e.shiftKey) {
+            e.preventDefault();
+            $firstButton.focus();
+          }
+        });
+      }
     },
 
     /**
@@ -124,6 +165,7 @@
     },
 
     showPicker: function() {
+      var self = this;
       var pos = this.$icon.offset();
       this.$picker.css({
         // Remove some pixels to align the picker icon with the icons inside the dropdown
@@ -131,11 +173,17 @@
         top: pos.top + this.$icon.outerHeight()
       });
 
-      this.$picker.show(this.options.pickerDelay);
+      this.$picker.show(this.options.pickerDelay, function() {
+        self.$picker.find('[role=button]').first().focus();
+      });
     },
 
     hidePicker: function() {
-      this.$picker.hide(this.options.pickerDelay);
+      var self = this;
+      this.$picker.hide(this.options.pickerDelay, function() {
+        //FIXME When ESC is pressed, the ESC is being propogated to a bootstrap dialog when it is in a dialog.
+        self.$icon.focus();
+      });
     },
 
     /**
@@ -206,13 +254,11 @@
 
     // For HTML element passed to the plugin
     return this.each(function() {
-      var $this = $(this),
-        data = $this.data('simplecolorpicker'),
-        options = typeof option === 'object' && option;
+      var $this = $(this), data = $this.data('simplecolorpicker'), options = typeof option === 'object' && option;
       if (data === undefined) {
-        $this.data('simplecolorpicker', (data = new SimpleColorPicker(this, options)));
+        $this.data('simplecolorpicker', ( data = new SimpleColorPicker(this, options)));
       }
-      if (typeof option === 'string') {
+      if ( typeof option === 'string') {
         data[option].apply(data, args);
       }
     });
