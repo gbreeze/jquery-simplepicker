@@ -254,11 +254,13 @@
 
     // For HTML element passed to the plugin
     return this.each(function() {
-      var $this = $(this), data = $this.data('simplecolorpicker'), options = typeof option === 'object' && option;
+      var $this = $(this), 
+        data = $this.data('simplecolorpicker'), 
+        options = typeof option === 'object' && option;
       if (data === undefined) {
-        $this.data('simplecolorpicker', ( data = new SimpleColorPicker(this, options)));
+        $this.data('simplecolorpicker', (data = new SimpleColorPicker(this, options)));
       }
-      if ( typeof option === 'string') {
+      if (typeof option === 'string') {
         data[option].apply(data, args);
       }
     });
