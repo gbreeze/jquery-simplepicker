@@ -181,7 +181,6 @@
     hidePicker: function() {
       var self = this;
       this.$picker.hide(this.options.pickerDelay, function() {
-        //FIXME When ESC is pressed, the ESC is being propogated to a bootstrap dialog when it is in a dialog.
         self.$icon.focus();
       });
     },
