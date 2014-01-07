@@ -180,9 +180,12 @@
 
     hidePicker: function() {
       var self = this;
-      this.$picker.hide(this.options.pickerDelay, function() {
-        self.$icon.focus();
-      });
+      var isVisible = this.$picker.is(":visible");
+      if (isVisible) {
+        this.$picker.hide(this.options.pickerDelay, function() {        
+          self.$icon.focus();
+        });
+      }
     },
 
     /**
