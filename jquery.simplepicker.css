@@ -62,9 +62,17 @@
   border: 1px solid transparent;
 }
 
-.simplepicker.icon:after,
-.simplepicker span.option:after {
-  content: '\00a0\00a0\00a0\00a0'; /* Spaces */
+.simplepicker.icon.empty:after,
+.simplepicker span.empty:after {
+  content: '\00a0\00a0\00a0\00a0'; /* fill with spaces */
+}
+
+.simplepicker.icon.fixed,
+.simplepicker span.fixed {
+    width: 1.6em;
+    line-height: 1.6em;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .simplepicker span.option[data-disabled]:hover {

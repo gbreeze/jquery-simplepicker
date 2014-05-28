@@ -293,12 +293,12 @@
 
     // Change the icon value
     setIconValue: function ($icon, value) {
-        $icon.css('background-color', value);
+        $icon.addClass('empty').css('background-color', value);
     },
 
     // Change an option value
     setOptionValue: function ($option, value) {
-        $option.css('background-color', value);
+        $option.addClass('empty').css('background-color', value);
     }
 
   };
