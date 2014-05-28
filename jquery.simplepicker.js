@@ -13,15 +13,15 @@
   /**
    * Constructor.
    */
-  var SimpleColorPicker = function(select, options) {
-    this.init('simplecolorpicker', select, options);
+  var SimplePicker = function(select, options) {
+    this.init('simplepicker', select, options);
   };
 
   /**
-   * SimpleColorPicker class.
+   * SimplePicker class.
    */
-  SimpleColorPicker.prototype = {
-    constructor: SimpleColorPicker,
+  SimplePicker.prototype = {
+    constructor: SimplePicker,
 
     init: function(type, select, options) {
       var self = this;
@@ -31,13 +31,13 @@
       self.$select = $(select);
       self.$select.hide();
 
-      self.options = $.extend({}, $.fn.simplecolorpicker.defaults, options);
+      self.options = $.extend({}, $.fn.simplepicker.defaults, options);
 
       self.$colorList = null;
 
       if (self.options.picker === true) {
         var selectText = self.$select.find('> option:selected').text();
-        self.$icon = $('<span class="simplecolorpicker icon"' 
+        self.$icon = $('<span class="simplepicker icon"' 
                       + ' title="' + selectText + '"' 
                       + ' style="background-color: ' + self.$select.val() + ';"' 
                       + ' role="button" tabindex="0">' 
@@ -49,7 +49,7 @@
           }
         });
 
-        self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
+        self.$picker = $('<span class="simplepicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
         self.$colorList = self.$picker;
 
         // Hide picker when clicking outside
@@ -63,7 +63,7 @@
           }
         });
       } else {
-        self.$inline = $('<span class="simplecolorpicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
+        self.$inline = $('<span class="simplepicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
         self.$colorList = self.$inline;
       }
 
@@ -248,19 +248,19 @@
 
   /**
    * Plugin definition.
-   * How to use: $('#id').simplecolorpicker()
+   * How to use: $('#id').simplepicker()
    */
-  $.fn.simplecolorpicker = function(option) {
+  $.fn.simplepicker = function(option) {
     var args = $.makeArray(arguments);
     args.shift();
 
     // For HTML element passed to the plugin
     return this.each(function() {
       var $this = $(this), 
-        data = $this.data('simplecolorpicker'), 
+        data = $this.data('simplepicker'), 
         options = typeof option === 'object' && option;
       if (data === undefined) {
-        $this.data('simplecolorpicker', (data = new SimpleColorPicker(this, options)));
+        $this.data('simplepicker', (data = new SimplePicker(this, options)));
       }
       if (typeof option === 'string') {
         data[option].apply(data, args);
@@ -271,7 +271,7 @@
   /**
    * Default options.
    */
-  $.fn.simplecolorpicker.defaults = {
+  $.fn.simplepicker.defaults = {
     // No theme by default
     theme: '',
 
