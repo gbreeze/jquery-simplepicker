@@ -45,7 +45,6 @@
         var selectText = self.$select.find('> option:selected').text();
         self.$icon = $('<span class="simplepicker icon"' 
                       + ' title="' + selectText + '"' 
-                      + ' style="background-color: ' + self.$select.val() + ';"' 
                       + ' role="button" tabindex="0">' 
                       + '</span>').insertAfter(self.$select);
         self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
@@ -54,6 +53,8 @@
             self.showPicker();
           }
         });
+
+        self.options.onChangeIcon(self.$icon, self.$select.val());
 
         self.$picker = $('<span class="simplepicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
         self.$optionList = self.$picker;
@@ -285,7 +286,13 @@
     picker: false,
 
     // Animation delay in milliseconds
-    pickerDelay: 0
+    pickerDelay: 0,
+
+    // Change the icon value
+    onChangeIcon: function ($icon, value) {
+        $icon.css('background-color', value);
+    }
+
   };
 
 })(jQuery);
