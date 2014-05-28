@@ -39,6 +39,11 @@
 
       self.options = $.extend({}, $.fn.simplepicker.defaults, options);
 
+      if (!self.options.setIconValue) {
+        // default to using the option callback for icons
+        self.options.setIconValue = self.options.setOptionValue;
+      }
+
       self.$optionList = null;
 
       if (self.options.picker === true) {
@@ -292,10 +297,8 @@
     // Animation delay in milliseconds
     pickerDelay: 0,
 
-    // Change the icon value
-    setIconValue: function ($icon, value) {
-        $icon.addClass('empty').css('background-color', value);
-    },
+    // Change the icon value, defaults to setOptionValue
+    setIconValue: null,
 
     // Change an option value
     setOptionValue: function ($option, value) {
