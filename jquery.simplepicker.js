@@ -1,8 +1,14 @@
 /*
- * Very simple jQuery Color Picker
- * https://github.com/tkrotoff/jquery-simplecolorpicker
+ * Very simple jQuery Picker
  *
+ * Original project was made exclusively for colors. Enhanced to be used for
+ * any <select> element.
+ *
+ * https://github.com/tkrotoff/jquery-simplecolorpicker
  * Copyright (C) 2012-2013 Tanguy Krotoff <tkrotoff@gmail.com>
+ *
+ * https://github.com/ushahidi/jquery-simplepicker
+ * Copyright (C) 2014 Ushahidi <http://ushahidi.com/>
  *
  * Licensed under the MIT license
  */
