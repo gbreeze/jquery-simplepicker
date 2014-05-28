@@ -223,10 +223,10 @@
     },
 
     /**
-     * The user clicked on a color inside $optionList.
+     * The user clicked on a value inside $optionList.
      */
     optionSpanClicked: function(e) {
-      // When a color is clicked, make it the new selected one (unless disabled)
+      // When a value is clicked, make it the new selected one (unless disabled)
       if ($(e.target).is('[data-disabled]') === false) {
         this.selectOptionSpan($(e.target));
         this.$select.trigger('change');
