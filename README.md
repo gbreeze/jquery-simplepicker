@@ -63,8 +63,8 @@ $('select[name="colorpicker"]').simplepicker({
 - theme: font to use for the ok/check mark (default: `''`), available themes: [`regularfont`](https://github.com/ushahidi/jquery-simplepicker/blob/master/jquery.simplepicker-regularfont.css), [`fontawesome`](https://github.com/ushahidi/jquery-simplepicker/blob/master/jquery.simplepicker-fontawesome.css), [`glyphicons`](https://github.com/ushahidi/jquery-simplepicker/blob/master/jquery.simplepicker-glyphicons.css)
 - picker: show the colors inside a picker instead of inline (default: `false`)
 - pickerDelay: show and hide animation delay in milliseconds (default: `0`)
-- setIconValue: callback to update the HTML of the picker icon for a value (default: `function($icon, value){ $icon.css('background-color', value).addClass('empty'); }`
-- setOptionValue: callback to update the HTML of the option for a value (default: `function($option, value){ $option.css('background-color', value).addClass('empty'); }`
+- setOptionValue: callback to update the HTML of the option for a value (default: `function($option, value){ $option.css('background-color', value).addClass('empty'); }`)
+- setIconValue: callback to update the HTML of the picker icon for a value, or empty to use the same callback as `setOptionValue` (default: `null`)
 
 ### Modifying the HTML of options
 
@@ -83,7 +83,6 @@ For example, if you had a dropown that contained text options:
 To show images for each of the values, you could use these options:
 
 ```JavaScript
-// using the same callback for both picker and options
 var showImage = function($elem, value) {
   // create a new image and use the value as part of the source
   var $img = $('<img>').attr('src', '/img/food/' + value + '.jpg');
@@ -91,8 +90,7 @@ var showImage = function($elem, value) {
 };
 $('select[name="choicespicker"]').simplepicker({
   picker: true,
-  setOptionValue: showImage,
-  setIconValue: showImage
+  setOptionValue: showImage
 });
 ```
 
