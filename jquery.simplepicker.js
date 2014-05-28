@@ -156,21 +156,21 @@
     },
 
     /**
-     * Changes the selected color.
+     * Changes the selected option.
      *
-     * @param color the hexadecimal color to select, ex: '#fbd75b'
+     * @param value  to be selected
      */
-    selectOption: function(color) {
+    selectOption: function(value) {
       var self = this;
 
       var $optionSpan = self.$optionList.find('> span.option').filter(function() {
-        return $(this).data('value').toLowerCase() === color.toLowerCase();
+        return $(this).data('value').toLowerCase() === value.toLowerCase();
       });
 
       if ($optionSpan.length > 0) {
         self.selectOptionSpan($optionSpan);
       } else {
-        console.error("The given color '" + color + "' could not be found");
+        console.error("The given option '" + value + "' could not be found");
       }
     },
 
