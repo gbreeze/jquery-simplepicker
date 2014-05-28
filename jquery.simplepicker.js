@@ -106,7 +106,7 @@
         var $optionSpan = $('<span class="option"' 
                           + title 
                           + ' style="background-color: ' + color + ';"' 
-                          + ' data-color="' + color + '"' 
+                          + ' data-value="' + color + '"' 
                           + selected 
                           + disabled 
                           + role + '>' 
@@ -161,7 +161,7 @@
       var self = this;
 
       var $optionSpan = self.$optionList.find('> span.option').filter(function() {
-        return $(this).data('color').toLowerCase() === color.toLowerCase();
+        return $(this).data('value').toLowerCase() === color.toLowerCase();
       });
 
       if ($optionSpan.length > 0) {
@@ -202,7 +202,7 @@
      * It also changes the HTML select value, this will emit the 'change' event.
      */
     selectOptionSpan: function($optionSpan) {
-      var color = $optionSpan.data('color');
+      var color = $optionSpan.data('value');
       var title = $optionSpan.prop('title');
 
       // Mark this span as the selected one
