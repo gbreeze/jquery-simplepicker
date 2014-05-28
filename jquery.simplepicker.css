@@ -55,7 +55,7 @@
 }
 
 .simplepicker.icon,
-.simplepicker span.color {
+.simplepicker span.option {
   display: inline-block;
 
   cursor: pointer;
@@ -63,21 +63,21 @@
 }
 
 .simplepicker.icon:after,
-.simplepicker span.color:after {
+.simplepicker span.option:after {
   content: '\00a0\00a0\00a0\00a0'; /* Spaces */
 }
 
-.simplepicker span.color[data-disabled]:hover {
+.simplepicker span.option[data-disabled]:hover {
   cursor: not-allowed;
   border: 1px solid transparent;
 }
 
-.simplepicker span.color:hover,
-.simplepicker span.color[data-selected],
-.simplepicker span.color[data-selected]:hover {
+.simplepicker span.option:hover,
+.simplepicker span.option[data-selected],
+.simplepicker span.option[data-selected]:hover {
   border: 1px solid #222; /* @gray-dark */
 }
-.simplepicker span.color[data-selected]:after {
+.simplepicker span.option[data-selected]:after {
   color: #fff;
 }
 

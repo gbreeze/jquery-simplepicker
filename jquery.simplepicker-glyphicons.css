@@ -1,4 +1,4 @@
-.simplepicker.glyphicons span.color[data-selected]:after {
+.simplepicker.glyphicons span.option[data-selected]:after {
   /* Taken from glyphicon class. */
   position: relative;
   top: 1px;

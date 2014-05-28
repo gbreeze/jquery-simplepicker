@@ -74,8 +74,8 @@
         self.$optionList = self.$inline;
       }
 
-      // Build the list of colors
-      // <span class="color selected" title="Green" style="background-color: #7bd148;" role="button"></span>
+      // Build the list of options
+      // <span class="option selected" title="Green" style="background-color: #7bd148;" role="button"></span>
       self.$select.find('> option').each(function() {
         var $option = $(this);
         var color = $option.val();
@@ -103,7 +103,7 @@
           role = ' role="button" tabindex="0"';
         }
 
-        var $optionSpan = $('<span class="color"' 
+        var $optionSpan = $('<span class="option"' 
                           + title 
                           + ' style="background-color: ' + color + ';"' 
                           + ' data-color="' + color + '"' 
@@ -160,7 +160,7 @@
     selectOption: function(color) {
       var self = this;
 
-      var $optionSpan = self.$optionList.find('> span.color').filter(function() {
+      var $optionSpan = self.$optionList.find('> span.option').filter(function() {
         return $(this).data('color').toLowerCase() === color.toLowerCase();
       });
 
