@@ -33,7 +33,7 @@
 
       self.options = $.extend({}, $.fn.simplepicker.defaults, options);
 
-      self.$colorList = null;
+      self.$optionList = null;
 
       if (self.options.picker === true) {
         var selectText = self.$select.find('> option:selected').text();
@@ -50,7 +50,7 @@
         });
 
         self.$picker = $('<span class="simplepicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
-        self.$colorList = self.$picker;
+        self.$optionList = self.$picker;
 
         // Hide picker when clicking outside
         $(document).on('mousedown.' + self.type, $.proxy(self.hidePicker, self));
@@ -64,7 +64,7 @@
         });
       } else {
         self.$inline = $('<span class="simplepicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
-        self.$colorList = self.$inline;
+        self.$optionList = self.$inline;
       }
 
       // Build the list of colors
@@ -105,7 +105,7 @@
                           + role + '>' 
                           + '</span>');
 
-        self.$colorList.append($colorSpan);
+        self.$optionList.append($colorSpan);
         $colorSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
         $colorSpan.on('keydown.' + self.type, function(e) {
           if (e.which === 13) {
@@ -118,7 +118,7 @@
         var $next = $option.next();
         if ($next.is('optgroup') === true) {
           // Vertical break, like hr
-          self.$colorList.append('<span class="vr"></span>');
+          self.$optionList.append('<span class="vr"></span>');
         }
       });
 
@@ -153,7 +153,7 @@
     selectOption: function(color) {
       var self = this;
 
-      var $colorSpan = self.$colorList.find('> span.color').filter(function() {
+      var $colorSpan = self.$optionList.find('> span.color').filter(function() {
         return $(this).data('color').toLowerCase() === color.toLowerCase();
       });
 
@@ -189,7 +189,7 @@
     },
 
     /**
-     * Selects the given span inside $colorList.
+     * Selects the given span inside $optionList.
      *
      * The given span becomes the selected one.
      * It also changes the HTML select value, this will emit the 'change' event.
@@ -213,7 +213,7 @@
     },
 
     /**
-     * The user clicked on a color inside $colorList.
+     * The user clicked on a color inside $optionList.
      */
     optionSpanClicked: function(e) {
       // When a color is clicked, make it the new selected one (unless disabled)
@@ -238,8 +238,8 @@
         $(document).off('.' + this.type);
       }
 
-      this.$colorList.off('.' + this.type);
-      this.$colorList.remove();
+      this.$optionList.off('.' + this.type);
+      this.$optionList.remove();
 
       this.$select.removeData(this.type);
       this.$select.show();
