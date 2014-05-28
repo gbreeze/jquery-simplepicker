@@ -106,12 +106,12 @@
                           + '</span>');
 
         self.$colorList.append($colorSpan);
-        $colorSpan.on('click.' + self.type, $.proxy(self.colorSpanClicked, self));
+        $colorSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
         $colorSpan.on('keydown.' + self.type, function(e) {
           if (e.which === 13) {
             e.preventDefault();
             e.stopPropagation();
-            self.colorSpanClicked(e);
+            self.optionSpanClicked(e);
           }
         });
 
@@ -150,7 +150,7 @@
      *
      * @param color the hexadecimal color to select, ex: '#fbd75b'
      */
-    selectColor: function(color) {
+    selectOption: function(color) {
       var self = this;
 
       var $colorSpan = self.$colorList.find('> span.color').filter(function() {
@@ -158,7 +158,7 @@
       });
 
       if ($colorSpan.length > 0) {
-        self.selectColorSpan($colorSpan);
+        self.selectOptionSpan($colorSpan);
       } else {
         console.error("The given color '" + color + "' could not be found");
       }
@@ -194,7 +194,7 @@
      * The given span becomes the selected one.
      * It also changes the HTML select value, this will emit the 'change' event.
      */
-    selectColorSpan: function($colorSpan) {
+    selectOptionSpan: function($colorSpan) {
       var color = $colorSpan.data('color');
       var title = $colorSpan.prop('title');
 
@@ -215,10 +215,10 @@
     /**
      * The user clicked on a color inside $colorList.
      */
-    colorSpanClicked: function(e) {
+    optionSpanClicked: function(e) {
       // When a color is clicked, make it the new selected one (unless disabled)
       if ($(e.target).is('[data-disabled]') === false) {
-        this.selectColorSpan($(e.target));
+        this.selectOptionSpan($(e.target));
         this.$select.trigger('change');
       }
     },
