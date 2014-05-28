@@ -54,6 +54,7 @@
           }
         });
 
+        // Trigger a "change" on the icon to set the initial value
         self.options.onChangeIcon(self.$icon, self.$select.val());
 
         self.$picker = $('<span class="simplepicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
@@ -75,10 +76,11 @@
       }
 
       // Build the list of options
-      // <span class="option selected" title="Green" style="background-color: #7bd148;" role="button"></span>
+      // <span class="option selected" title="Foo" role="button"></span>
+      // uses options.onCreateOption
       self.$select.find('> option').each(function() {
         var $option = $(this);
-        var color = $option.val();
+        var value = $option.val();
 
         var isSelected = $option.is(':selected');
         var isDisabled = $option.is(':disabled');
@@ -105,12 +107,13 @@
 
         var $optionSpan = $('<span class="option"' 
                           + title 
-                          + ' style="background-color: ' + color + ';"' 
-                          + ' data-value="' + color + '"' 
+                          + ' data-value="' + value + '"' 
                           + selected 
                           + disabled 
                           + role + '>' 
                           + '</span>');
+
+        self.options.onCreateOption($optionSpan, value);
 
         self.$optionList.append($optionSpan);
         $optionSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
@@ -291,6 +294,11 @@
     // Change the icon value
     onChangeIcon: function ($icon, value) {
         $icon.css('background-color', value);
+    },
+
+    // Create a new option
+    onCreateOption: function ($option, value) {
+        $option.css('background-color', value);
     }
 
   };
