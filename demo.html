@@ -7,10 +7,10 @@
 
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
   <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
-  <link rel="stylesheet" href="jquery.simplecolorpicker.css">
-  <link rel="stylesheet" href="jquery.simplecolorpicker-regularfont.css">
-  <link rel="stylesheet" href="jquery.simplecolorpicker-glyphicons.css">
-  <link rel="stylesheet" href="jquery.simplecolorpicker-fontawesome.css">
+  <link rel="stylesheet" href="jquery.simplepicker.css">
+  <link rel="stylesheet" href="jquery.simplepicker-regularfont.css">
+  <link rel="stylesheet" href="jquery.simplepicker-glyphicons.css">
+  <link rel="stylesheet" href="jquery.simplepicker-fontawesome.css">
 </head>
 
 <body style="padding: 15px;">
@@ -336,9 +336,9 @@ colorpicker-change-background-color:
   <option value="#e1e1e1">Gray</option>
 </select>
 
-<h3>selectColor('#fbd75b') after 5 seconds</h3>
-colorpicker-selectColor-#fbd75b:
-<select name="colorpicker-selectColor-#fbd75b">
+<h3>selectOption('#fbd75b') after 5 seconds</h3>
+colorpicker-selectOption-#fbd75b:
+<select name="colorpicker-selectOption-#fbd75b">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -353,9 +353,9 @@ colorpicker-selectColor-#fbd75b:
   <option value="#e1e1e1">Gray</option>
 </select>
 
-<h3>selectColor('#FBD75B') after 5 seconds</h3>
-colorpicker-selectColor-#FBD75B:
-<select name="colorpicker-selectColor-#FBD75B">
+<h3>selectOption('#FBD75B') after 5 seconds</h3>
+colorpicker-selectOption-#FBD75B:
+<select name="colorpicker-selectOption-#FBD75B">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -370,9 +370,9 @@ colorpicker-selectColor-#FBD75B:
   <option value="#e1e1e1">Gray</option>
 </select>
 
-<h3>Multiple selectColor('#fbd75b') after 5 seconds</h3>
-colorpicker-selectColor-#fbd75b-multiple:
-<select name="colorpicker-selectColor-#fbd75b-multiple" style="display: none;">
+<h3>Multiple selectOption('#fbd75b') after 5 seconds</h3>
+colorpicker-selectOption-#fbd75b-multiple:
+<select name="colorpicker-selectOption-#fbd75b-multiple" style="display: none;">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -389,9 +389,9 @@ colorpicker-selectColor-#fbd75b-multiple:
   <option value="#e1e1e1">Gray</option>
 </select>
 
-<h3>selectColor('unknown') after 5 seconds</h3>
-colorpicker-selectColor-unknown:
-<select name="colorpicker-selectColor-unknown">
+<h3>selectOption('unknown') after 5 seconds</h3>
+colorpicker-selectOption-unknown:
+<select name="colorpicker-selectOption-unknown">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -539,9 +539,9 @@ colorpicker-picker-optgroups:
   <option value="#e1e1e1">Gray</option>
 </select>
 
-<h3>Picker with selectColor('#fbd75b') after 5 seconds</h3>
-colorpicker-picker-selectColor-#fbd75b:
-<select name="colorpicker-picker-selectColor-#fbd75b">
+<h3>Picker with selectOption('#fbd75b') after 5 seconds</h3>
+colorpicker-picker-selectOption-#fbd75b:
+<select name="colorpicker-picker-selectOption-#fbd75b">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -556,9 +556,9 @@ colorpicker-picker-selectColor-#fbd75b:
   <option value="#e1e1e1">Gray</option>
 </select>
 
-<h3>Picker with selectColor('unknown') after 5 seconds</h3>
-colorpicker-picker-selectColor-unknown:
-<select name="colorpicker-picker-selectColor-unknown">
+<h3>Picker with selectOption('unknown') after 5 seconds</h3>
+colorpicker-picker-selectOption-unknown:
+<select name="colorpicker-picker-selectOption-unknown">
   <option value="#7bd148">Green</option>
   <option value="#5484ed">Bold blue</option>
   <option value="#a4bdfc">Blue</option>
@@ -575,7 +575,7 @@ colorpicker-picker-selectColor-unknown:
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
-<script src="jquery.simplecolorpicker.js"></script>
+<script src="jquery.simplepicker.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -584,69 +584,69 @@ $(document).ready(function() {
   });
 
   setTimeout(function() {
-    $('select[name="colorpicker-selectColor-#fbd75b"]').simplecolorpicker('selectColor', '#fbd75b');
+    $('select[name="colorpicker-selectOption-#fbd75b"]').simplepicker('selectOption', '#fbd75b');
   }, 5000);
 
   setTimeout(function() {
-    $('select[name="colorpicker-selectColor-#FBD75B"]').simplecolorpicker('selectColor', '#FBD75B');
+    $('select[name="colorpicker-selectOption-#FBD75B"]').simplepicker('selectOption', '#FBD75B');
   }, 5000);
 
   setTimeout(function() {
-    $('select[name="colorpicker-selectColor-#fbd75b-multiple"]').simplecolorpicker('selectColor', '#fbd75b');
-  }, 5000);
-
-  setTimeout(function() {
-    // Generates a JavaScript error
-    $('select[name="colorpicker-selectColor-unknown"]').simplecolorpicker('selectColor', 'unknown');
-  }, 5000);
-
-
-  setTimeout(function() {
-    $('select[name="colorpicker-picker-selectColor-#fbd75b"]').simplecolorpicker('selectColor', '#fbd75b');
+    $('select[name="colorpicker-selectOption-#fbd75b-multiple"]').simplepicker('selectOption', '#fbd75b');
   }, 5000);
 
   setTimeout(function() {
     // Generates a JavaScript error
-    $('select[name="colorpicker-picker-selectColor-unknown"]').simplecolorpicker('selectColor', 'unknown');
+    $('select[name="colorpicker-selectOption-unknown"]').simplepicker('selectOption', 'unknown');
+  }, 5000);
+
+
+  setTimeout(function() {
+    $('select[name="colorpicker-picker-selectOption-#fbd75b"]').simplepicker('selectOption', '#fbd75b');
+  }, 5000);
+
+  setTimeout(function() {
+    // Generates a JavaScript error
+    $('select[name="colorpicker-picker-selectOption-unknown"]').simplepicker('selectOption', 'unknown');
   }, 5000);
  
 
   $('#init').on('click', function() {
-    $('select[name="colorpicker-shortlist"]').simplecolorpicker();
-    $('select[name="colorpicker-longlist"]').simplecolorpicker();
-    $('select[name="colorpicker-notheme"]').simplecolorpicker();
-    $('select[name="colorpicker-regularfont"]').simplecolorpicker({theme: 'regularfont'});
-    $('select[name="colorpicker-glyphicons"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-fontawesome"]').simplecolorpicker({theme: 'fontawesome'});
-    $('select[name="colorpicker-bootstrap3-form"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-modal-inline"]').simplecolorpicker();
-    $('select[name="colorpicker-modal-picker"]').simplecolorpicker({picker: true});
-    $('select[name="colorpicker-option-selected"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-options-disabled"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-option-selected-disabled"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-optgroups"]').simplecolorpicker();
-    $('select[name="colorpicker-change-background-color"]').simplecolorpicker();
-    $('select[name="colorpicker-selectColor-#fbd75b"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-selectColor-#FBD75B"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-selectColor-#fbd75b-multiple"]').simplecolorpicker({theme: 'glyphicons'});
-    $('select[name="colorpicker-selectColor-unknown"]').simplecolorpicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-shortlist"]').simplepicker();
+    $('select[name="colorpicker-longlist"]').simplepicker();
+    $('select[name="colorpicker-notheme"]').simplepicker();
+    $('select[name="colorpicker-regularfont"]').simplepicker({theme: 'regularfont'});
+    $('select[name="colorpicker-glyphicons"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-fontawesome"]').simplepicker({theme: 'fontawesome'});
+    $('select[name="colorpicker-bootstrap3-form"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-modal-inline"]').simplepicker();
+    $('select[name="colorpicker-modal-picker"]').simplepicker({picker: true});
+    $('select[name="colorpicker-option-selected"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-options-disabled"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-option-selected-disabled"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-optgroups"]').simplepicker();
+    $('select[name="colorpicker-change-background-color"]').simplepicker();
+    $('select[name="colorpicker-selectOption-#fbd75b"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-selectOption-#FBD75B"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-selectOption-#fbd75b-multiple"]').simplepicker({theme: 'glyphicons'});
+    $('select[name="colorpicker-selectOption-unknown"]').simplepicker({theme: 'glyphicons'});
 
-    $('select[name="colorpicker-picker-shortlist"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-longlist"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-delay"]').simplecolorpicker({picker: true, theme: 'glyphicons', pickerDelay: 1000});
-    $('select[name="colorpicker-picker-option-selected"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-options-disabled"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-option-selected-disabled"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-optgroups"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-selectColor-#fbd75b"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
-    $('select[name="colorpicker-picker-selectColor-unknown"]').simplecolorpicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-shortlist"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-longlist"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-delay"]').simplepicker({picker: true, theme: 'glyphicons', pickerDelay: 1000});
+    $('select[name="colorpicker-picker-option-selected"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-options-disabled"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-option-selected-disabled"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-optgroups"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-selectOption-#fbd75b"]').simplepicker({picker: true, theme: 'glyphicons'});
+    $('select[name="colorpicker-picker-selectOption-unknown"]').simplepicker({picker: true, theme: 'glyphicons'});
   });
 
   $('#destroy').on('click', function() {
-    $('select').simplecolorpicker('destroy');
+    $('select').simplepicker('destroy');
   });
 
-  // By default, activate simplecolorpicker plugin on HTML selects
+  // By default, activate simplepicker plugin on HTML selects
   $('#init').trigger('click');
 });
 </script>
