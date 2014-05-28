@@ -103,7 +103,7 @@
           role = ' role="button" tabindex="0"';
         }
 
-        var $colorSpan = $('<span class="color"' 
+        var $optionSpan = $('<span class="color"' 
                           + title 
                           + ' style="background-color: ' + color + ';"' 
                           + ' data-color="' + color + '"' 
@@ -112,9 +112,9 @@
                           + role + '>' 
                           + '</span>');
 
-        self.$optionList.append($colorSpan);
-        $colorSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
-        $colorSpan.on('keydown.' + self.type, function(e) {
+        self.$optionList.append($optionSpan);
+        $optionSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
+        $optionSpan.on('keydown.' + self.type, function(e) {
           if (e.which === 13) {
             e.preventDefault();
             e.stopPropagation();
@@ -160,12 +160,12 @@
     selectOption: function(color) {
       var self = this;
 
-      var $colorSpan = self.$optionList.find('> span.color').filter(function() {
+      var $optionSpan = self.$optionList.find('> span.color').filter(function() {
         return $(this).data('color').toLowerCase() === color.toLowerCase();
       });
 
-      if ($colorSpan.length > 0) {
-        self.selectOptionSpan($colorSpan);
+      if ($optionSpan.length > 0) {
+        self.selectOptionSpan($optionSpan);
       } else {
         console.error("The given color '" + color + "' could not be found");
       }
@@ -201,13 +201,13 @@
      * The given span becomes the selected one.
      * It also changes the HTML select value, this will emit the 'change' event.
      */
-    selectOptionSpan: function($colorSpan) {
-      var color = $colorSpan.data('color');
-      var title = $colorSpan.prop('title');
+    selectOptionSpan: function($optionSpan) {
+      var color = $optionSpan.data('color');
+      var title = $optionSpan.prop('title');
 
       // Mark this span as the selected one
-      $colorSpan.siblings().removeAttr('data-selected');
-      $colorSpan.attr('data-selected', '');
+      $optionSpan.siblings().removeAttr('data-selected');
+      $optionSpan.attr('data-selected', '');
 
       if (this.options.picker === true) {
         this.$icon.css('background-color', color);
