@@ -205,7 +205,7 @@
      * It also changes the HTML select value, this will emit the 'change' event.
      */
     selectOptionSpan: function($optionSpan) {
-      var color = $optionSpan.data('value');
+      var value = $optionSpan.data('value');
       var title = $optionSpan.prop('title');
 
       // Mark this span as the selected one
@@ -213,13 +213,13 @@
       $optionSpan.attr('data-selected', '');
 
       if (this.options.picker === true) {
-        this.$icon.css('background-color', color);
+        this.options.onChangeIcon(this.$icon, value);
         this.$icon.prop('title', title);
         this.hidePicker();
       }
 
       // Change HTML select value
-      this.$select.val(color);
+      this.$select.val(value);
     },
 
     /**
