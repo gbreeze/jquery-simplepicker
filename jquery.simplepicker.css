@@ -13,7 +13,7 @@
  * See https://github.com/twbs/bootstrap/blob/master/less/dropdowns.less
  */
 
-.simplecolorpicker.picker {
+.simplepicker.picker {
   position: absolute;
   top: 100%;
   left: 0;
@@ -45,43 +45,51 @@
           background-clip: padding-box;
 }
 
-.simplecolorpicker.inline {
+.simplepicker.inline {
   display: inline-block;
   padding: 6px 0;
 }
 
-.simplecolorpicker span {
+.simplepicker span {
   margin: 0 5px 5px 0;
 }
 
-.simplecolorpicker.icon,
-.simplecolorpicker span.color {
+.simplepicker.icon,
+.simplepicker span.option {
   display: inline-block;
 
   cursor: pointer;
   border: 1px solid transparent;
 }
 
-.simplecolorpicker.icon:after,
-.simplecolorpicker span.color:after {
-  content: '\00a0\00a0\00a0\00a0'; /* Spaces */
+.simplepicker.icon.empty:after,
+.simplepicker span.empty:after {
+  content: '\00a0\00a0\00a0\00a0'; /* fill with spaces */
 }
 
-.simplecolorpicker span.color[data-disabled]:hover {
+.simplepicker.icon.fixed,
+.simplepicker span.fixed {
+    width: 1.6em;
+    line-height: 1.6em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.simplepicker span.option[data-disabled]:hover {
   cursor: not-allowed;
   border: 1px solid transparent;
 }
 
-.simplecolorpicker span.color:hover,
-.simplecolorpicker span.color[data-selected],
-.simplecolorpicker span.color[data-selected]:hover {
+.simplepicker span.option:hover,
+.simplepicker span.option[data-selected],
+.simplepicker span.option[data-selected]:hover {
   border: 1px solid #222; /* @gray-dark */
 }
-.simplecolorpicker span.color[data-selected]:after {
+.simplepicker span.option[data-selected]:after {
   color: #fff;
 }
 
 /* Vertical separator, replaces optgroup. */
-.simplecolorpicker span.vr {
+.simplepicker span.vr {
   border-left: 1px solid #222; /* @gray-dark */
 }

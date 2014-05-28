@@ -1,8 +1,14 @@
 /*
- * Very simple jQuery Color Picker
- * https://github.com/tkrotoff/jquery-simplecolorpicker
+ * Very simple jQuery Picker
  *
+ * Original project was made exclusively for colors. Enhanced to be used for
+ * any <select> element that has fixed sized options.
+ *
+ * https://github.com/tkrotoff/jquery-simplecolorpicker
  * Copyright (C) 2012-2013 Tanguy Krotoff <tkrotoff@gmail.com>
+ *
+ * https://github.com/ushahidi/jquery-simplepicker
+ * Copyright (C) 2014 Ushahidi <http://ushahidi.com/>
  *
  * Licensed under the MIT license
  */
@@ -13,15 +19,15 @@
   /**
    * Constructor.
    */
-  var SimpleColorPicker = function(select, options) {
-    this.init('simplecolorpicker', select, options);
+  var SimplePicker = function(select, options) {
+    this.init('simplepicker', select, options);
   };
 
   /**
-   * SimpleColorPicker class.
+   * SimplePicker class.
    */
-  SimpleColorPicker.prototype = {
-    constructor: SimpleColorPicker,
+  SimplePicker.prototype = {
+    constructor: SimplePicker,
 
     init: function(type, select, options) {
       var self = this;
@@ -31,15 +37,14 @@
       self.$select = $(select);
       self.$select.hide();
 
-      self.options = $.extend({}, $.fn.simplecolorpicker.defaults, options);
+      self.options = $.extend({}, $.fn.simplepicker.defaults, options);
 
-      self.$colorList = null;
+      self.$optionList = null;
 
       if (self.options.picker === true) {
         var selectText = self.$select.find('> option:selected').text();
-        self.$icon = $('<span class="simplecolorpicker icon"' 
+        self.$icon = $('<span class="simplepicker icon"' 
                       + ' title="' + selectText + '"' 
-                      + ' style="background-color: ' + self.$select.val() + ';"' 
                       + ' role="button" tabindex="0">' 
                       + '</span>').insertAfter(self.$select);
         self.$icon.on('click.' + self.type, $.proxy(self.showPicker, self));
@@ -49,8 +54,11 @@
           }
         });
 
-        self.$picker = $('<span class="simplecolorpicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
-        self.$colorList = self.$picker;
+        // allow the user to override how the selected icon functions
+        self.options.setIconValue(self.$icon, self.$select.val());
+
+        self.$picker = $('<span class="simplepicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
+        self.$optionList = self.$picker;
 
         // Hide picker when clicking outside
         $(document).on('mousedown.' + self.type, $.proxy(self.hidePicker, self));
@@ -63,15 +71,15 @@
           }
         });
       } else {
-        self.$inline = $('<span class="simplecolorpicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
-        self.$colorList = self.$inline;
+        self.$inline = $('<span class="simplepicker inline ' + self.options.theme + '"></span>').insertAfter(self.$select);
+        self.$optionList = self.$inline;
       }
 
-      // Build the list of colors
-      // <span class="color selected" title="Green" style="background-color: #7bd148;" role="button"></span>
+      // Build the list of options
+      // <span class="option selected" title="Foo" role="button"></span>
       self.$select.find('> option').each(function() {
         var $option = $(this);
-        var color = $option.val();
+        var value = $option.val();
 
         var isSelected = $option.is(':selected');
         var isDisabled = $option.is(':disabled');
@@ -96,29 +104,31 @@
           role = ' role="button" tabindex="0"';
         }
 
-        var $colorSpan = $('<span class="color"' 
+        var $optionSpan = $('<span class="option"' 
                           + title 
-                          + ' style="background-color: ' + color + ';"' 
-                          + ' data-color="' + color + '"' 
+                          + ' data-value="' + value + '"' 
                           + selected 
                           + disabled 
                           + role + '>' 
                           + '</span>');
 
-        self.$colorList.append($colorSpan);
-        $colorSpan.on('click.' + self.type, $.proxy(self.colorSpanClicked, self));
-        $colorSpan.on('keydown.' + self.type, function(e) {
+        // allow the user to override how values are rendered into options
+        self.options.setOptionValue($optionSpan, value);
+
+        self.$optionList.append($optionSpan);
+        $optionSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
+        $optionSpan.on('keydown.' + self.type, function(e) {
           if (e.which === 13) {
             e.preventDefault();
             e.stopPropagation();
-            self.colorSpanClicked(e);
+            self.optionSpanClicked(e);
           }
         });
 
         var $next = $option.next();
         if ($next.is('optgroup') === true) {
           // Vertical break, like hr
-          self.$colorList.append('<span class="vr"></span>');
+          self.$optionList.append('<span class="vr"></span>');
         }
       });
 
@@ -146,21 +156,21 @@
     },
 
     /**
-     * Changes the selected color.
+     * Changes the selected option.
      *
-     * @param color the hexadecimal color to select, ex: '#fbd75b'
+     * @param value  to be selected
      */
-    selectColor: function(color) {
+    selectOption: function(value) {
       var self = this;
 
-      var $colorSpan = self.$colorList.find('> span.color').filter(function() {
-        return $(this).data('color').toLowerCase() === color.toLowerCase();
+      var $optionSpan = self.$optionList.find('> span.option').filter(function() {
+        return $(this).data('value').toLowerCase() === value.toLowerCase();
       });
 
-      if ($colorSpan.length > 0) {
-        self.selectColorSpan($colorSpan);
+      if ($optionSpan.length > 0) {
+        self.selectOptionSpan($optionSpan);
       } else {
-        console.error("The given color '" + color + "' could not be found");
+        console.error("The given option '" + value + "' could not be found");
       }
     },
 
@@ -189,36 +199,37 @@
     },
 
     /**
-     * Selects the given span inside $colorList.
+     * Selects the given span inside $optionList.
      *
      * The given span becomes the selected one.
      * It also changes the HTML select value, this will emit the 'change' event.
      */
-    selectColorSpan: function($colorSpan) {
-      var color = $colorSpan.data('color');
-      var title = $colorSpan.prop('title');
+    selectOptionSpan: function($optionSpan) {
+      var value = $optionSpan.data('value');
+      var title = $optionSpan.prop('title');
 
       // Mark this span as the selected one
-      $colorSpan.siblings().removeAttr('data-selected');
-      $colorSpan.attr('data-selected', '');
+      $optionSpan.siblings().removeAttr('data-selected');
+      $optionSpan.attr('data-selected', '');
 
       if (this.options.picker === true) {
-        this.$icon.css('background-color', color);
+        this.options.setIconValue(this.$icon, value);
         this.$icon.prop('title', title);
         this.hidePicker();
       }
 
       // Change HTML select value
-      this.$select.val(color);
+      this.$select.val(value);
     },
 
     /**
-     * The user clicked on a color inside $colorList.
+     * The user clicked on a value inside $optionList.
      */
-    colorSpanClicked: function(e) {
-      // When a color is clicked, make it the new selected one (unless disabled)
-      if ($(e.target).is('[data-disabled]') === false) {
-        this.selectColorSpan($(e.target));
+    optionSpanClicked: function(e) {
+      var $option = $(e.currentTarget);
+      // When a value is clicked, make it the new selected one (unless disabled)
+      if ($option.is('[data-disabled]') === false) {
+        this.selectOptionSpan($option);
         this.$select.trigger('change');
       }
     },
@@ -238,8 +249,8 @@
         $(document).off('.' + this.type);
       }
 
-      this.$colorList.off('.' + this.type);
-      this.$colorList.remove();
+      this.$optionList.off('.' + this.type);
+      this.$optionList.remove();
 
       this.$select.removeData(this.type);
       this.$select.show();
@@ -248,19 +259,19 @@
 
   /**
    * Plugin definition.
-   * How to use: $('#id').simplecolorpicker()
+   * How to use: $('#id').simplepicker()
    */
-  $.fn.simplecolorpicker = function(option) {
+  $.fn.simplepicker = function(option) {
     var args = $.makeArray(arguments);
     args.shift();
 
     // For HTML element passed to the plugin
     return this.each(function() {
       var $this = $(this), 
-        data = $this.data('simplecolorpicker'), 
+        data = $this.data('simplepicker'), 
         options = typeof option === 'object' && option;
       if (data === undefined) {
-        $this.data('simplecolorpicker', (data = new SimpleColorPicker(this, options)));
+        $this.data('simplepicker', (data = new SimplePicker(this, options)));
       }
       if (typeof option === 'string') {
         data[option].apply(data, args);
@@ -271,7 +282,7 @@
   /**
    * Default options.
    */
-  $.fn.simplecolorpicker.defaults = {
+  $.fn.simplepicker.defaults = {
     // No theme by default
     theme: '',
 
@@ -279,7 +290,18 @@
     picker: false,
 
     // Animation delay in milliseconds
-    pickerDelay: 0
+    pickerDelay: 0,
+
+    // Change the icon value
+    setIconValue: function ($icon, value) {
+        $icon.addClass('empty').css('background-color', value);
+    },
+
+    // Change an option value
+    setOptionValue: function ($option, value) {
+        $option.addClass('empty').css('background-color', value);
+    }
+
   };
 
 })(jQuery);

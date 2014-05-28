@@ -1,4 +1,4 @@
-.simplecolorpicker.fontawesome span.color[data-selected]:after {
+.simplepicker.fontawesome span.option[data-selected]:after {
   font-family: 'FontAwesome';
   -webkit-font-smoothing: antialiased;
 
