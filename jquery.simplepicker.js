@@ -54,8 +54,8 @@
           }
         });
 
-        // Trigger a "change" on the icon to set the initial value
-        self.options.onChangeIcon(self.$icon, self.$select.val());
+        // allow the user to override how the selected icon functions
+        self.options.setIconValue(self.$icon, self.$select.val());
 
         self.$picker = $('<span class="simplepicker picker ' + self.options.theme + '"></span>').appendTo(document.body);
         self.$optionList = self.$picker;
@@ -77,7 +77,6 @@
 
       // Build the list of options
       // <span class="option selected" title="Foo" role="button"></span>
-      // uses options.onCreateOption
       self.$select.find('> option').each(function() {
         var $option = $(this);
         var value = $option.val();
@@ -113,7 +112,8 @@
                           + role + '>' 
                           + '</span>');
 
-        self.options.onCreateOption($optionSpan, value);
+        // allow the user to override how values are rendered into options
+        self.options.setOptionValue($optionSpan, value);
 
         self.$optionList.append($optionSpan);
         $optionSpan.on('click.' + self.type, $.proxy(self.optionSpanClicked, self));
@@ -213,7 +213,7 @@
       $optionSpan.attr('data-selected', '');
 
       if (this.options.picker === true) {
-        this.options.onChangeIcon(this.$icon, value);
+        this.options.setIconValue(this.$icon, value);
         this.$icon.prop('title', title);
         this.hidePicker();
       }
@@ -292,12 +292,12 @@
     pickerDelay: 0,
 
     // Change the icon value
-    onChangeIcon: function ($icon, value) {
+    setIconValue: function ($icon, value) {
         $icon.css('background-color', value);
     },
 
-    // Create a new option
-    onCreateOption: function ($option, value) {
+    // Change an option value
+    setOptionValue: function ($option, value) {
         $option.css('background-color', value);
     }
 
