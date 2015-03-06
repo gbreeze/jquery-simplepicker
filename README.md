@@ -115,6 +115,12 @@ See http://dev.w3.org/html5/markup/input.color.html#input.color
 bower install jquery-simplepicker
 ```
 
+## npm
+
+```
+npm install ushahidi/jquery-simplepicker --save
+```
+
 ## Copyright and license
 
 MIT License
