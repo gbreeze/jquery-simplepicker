@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/ushahidi/jquery-simplepicker/issues"
   },
-  "homepage": "https://github.com/ushahidi/jquery-simplepicker"
+  "homepage": "https://github.com/ushahidi/jquery-simplepicker",
+  "registry": "github",
+  "jspm": {
+    "shim": {
+      "jquery.simplepicker": {
+        "deps": "jquery",
+        "exports": "$"
+      }
+    }
+  }
 }
